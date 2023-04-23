@@ -1,4 +1,6 @@
 import { createConnection } from 'mysql2/promise';
+import User from '../models/user.js';
+import Character from '../models/character.js';
 
 export const createDatabase = async () => {
   // Crea una conexión a MySQL
@@ -16,6 +18,8 @@ export const createDatabase = async () => {
 };
 
 export const addDefaultUser = async () => {
+  await User.sync();
+
   const connection = await createConnection({
     host: 'localhost',
     user: 'root',
@@ -42,6 +46,8 @@ export const addDefaultUser = async () => {
 };
 
 export const addDefaultsCharacters = async () => {
+  await Character.sync();
+
   const connection = await createConnection({
     host: 'localhost',
     user: 'root',
@@ -72,7 +78,7 @@ export const addDefaultsCharacters = async () => {
     "SELECT COUNT(*) AS count FROM `character` WHERE owner = 'default'"
   );
   if (rows[0].count != characters.length) {
-    await connection.query('DROP TABLE `character`');
+    await connection.query('DELETE FROM `character`');
     await connection.query(
       'INSERT INTO `character` (fullname, owner, race, class, level, alignment, strength, dexterity, constitution, intelligence, wisdom, charisma, img, biography) VALUES ?',
       [characters]
