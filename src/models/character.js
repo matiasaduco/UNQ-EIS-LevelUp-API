@@ -34,7 +34,7 @@ const Character = sequelize.define(
     // bonds: { type: DataTypes.STRING, allowNull: false },
     // flaws: { type: DataTypes.STRING, allowNull: false },
     img: { type: DataTypes.STRING, allowNull: false },
-    biography: { type: DataTypes.STRING, allowNull: true },
+    biography: { type: DataTypes.TEXT, allowNull: true },
   },
   {
     freezeTableName: true,
