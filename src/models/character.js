@@ -37,6 +37,7 @@ const Character = sequelize.define(
     biography: { type: DataTypes.TEXT, allowNull: true },
   },
   {
+    timestamps: false,
     freezeTableName: true,
   }
 );
