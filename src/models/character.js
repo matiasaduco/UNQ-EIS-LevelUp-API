@@ -35,6 +35,14 @@ const Character = sequelize.define(
     // flaws: { type: DataTypes.STRING, allowNull: false },
     img: { type: DataTypes.STRING, allowNull: false },
     biography: { type: DataTypes.STRING, allowNull: true },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    },
   },
   {
     freezeTableName: true,
