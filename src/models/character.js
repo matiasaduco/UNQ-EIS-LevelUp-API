@@ -33,8 +33,8 @@ const Character = sequelize.define(
     // ideals: { type: DataTypes.STRING, allowNull: false },
     // bonds: { type: DataTypes.STRING, allowNull: false },
     // flaws: { type: DataTypes.STRING, allowNull: false },
-    img: { type: DataTypes.STRING, allowNull: false },
     biography: { type: DataTypes.TEXT, allowNull: true },
+    img: { type: DataTypes.STRING, allowNull: false },
   },
   {
     timestamps: false,

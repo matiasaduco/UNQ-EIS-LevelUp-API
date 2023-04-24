@@ -4,8 +4,8 @@ export const getCharacters = async (req, res) => {
   try {
     const characters = await Character.findAll({
       attributes: [
-        'fullname',
         'id',
+        'fullname',
         'owner',
         'race',
         'class',
