@@ -1,4 +1,5 @@
 import express from 'express';
+import authRoutes from './src/routes/auth.routes.js';
 import charactersRoutes from './src/routes/character.routes.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -13,6 +14,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use('/auth', authRoutes)
 app.use('/characters', charactersRoutes);
 
 export const server = app.listen(port, () => {
