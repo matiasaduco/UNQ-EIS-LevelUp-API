@@ -36,11 +36,11 @@ export const addDefaultUser = async () => {
   };
 
   const [rows] = await connection.query(
-    'SELECT COUNT(*) AS count FROM user WHERE username = ?',
+    'SELECT COUNT(*) AS count FROM User WHERE username = ?',
     [defaultUser.username]
   );
   if (rows[0].count === 0)
-    await connection.query('INSERT INTO user SET ?', defaultUser);
+    await connection.query('INSERT INTO User SET ?', defaultUser);
 
   connection.end();
 };
@@ -91,12 +91,12 @@ export const addDefaultsCharacters = async () => {
   ];
 
   const [rows] = await connection.query(
-    "SELECT COUNT(*) AS count FROM `character` WHERE owner = 'default'"
+    "SELECT COUNT(*) AS count FROM `Character` WHERE owner = 'default'"
   );
   if (rows[0].count != characters.length) {
-    await connection.query('DELETE FROM `character`');
+    await connection.query('DELETE FROM `Character`');
     await connection.query(
-      'INSERT INTO `character` (fullname, owner, race, class, level, alignment, strength, dexterity, constitution, intelligence, wisdom, charisma, img, biography) VALUES ?',
+      'INSERT INTO `Character` (fullname, owner, race, class, level, alignment, strength, dexterity, constitution, intelligence, wisdom, charisma, img, biography) VALUES ?',
       [characters]
     );
   }
