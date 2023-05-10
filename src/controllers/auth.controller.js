@@ -24,7 +24,7 @@ export const signin = async (req, res) => {
     })
     const token = jwt.sign({ username }, 'root', { expiresIn: '9999999h' })
 
-    res.send({ message: 'Usuario creado con éxito!', token: token })
+    res.send({ message: 'Cuenta creada exitosamente!', token: token })
   } catch (error) {
     res.send({ message: error.message })
   }
