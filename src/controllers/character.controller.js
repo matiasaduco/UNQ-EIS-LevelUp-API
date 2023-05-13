@@ -1,3 +1,4 @@
+import { where } from 'sequelize'
 import Character from '../models/character.js'
 
 export const getCharacters = async (req, res) => {
@@ -46,7 +47,8 @@ export const createCharacter = async (req, res) => {
 
 export const editCharacter = async (req, res) => {
   try {
-    const character = await Character.update(req.body)
+    const character = await Character.update(req.body, 
+      {where:{"id": req.body.id}})
     res.status(200).send({
       message: 'Personaje editado exitosamente!',
       character: character,
