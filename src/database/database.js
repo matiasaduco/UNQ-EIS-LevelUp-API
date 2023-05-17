@@ -1,6 +1,7 @@
-import { createConnection } from 'mysql2/promise';
-import User from '../models/user.js';
-import Character from '../models/character.js';
+import { createConnection } from 'mysql2/promise'
+import User from '../models/user.js'
+import Character from '../models/character.js'
+import Adventure from '../models/adventure.js'
 
 export const createDatabase = async () => {
   // Crea una conexión a MySQL
@@ -8,24 +9,24 @@ export const createDatabase = async () => {
     host: 'localhost',
     user: 'root',
     password: 'root',
-  });
+  })
 
   // Crea la base de datos "levelup"
-  await connection.query('CREATE DATABASE IF NOT EXISTS levelup;');
-  console.log('Base de datos creada exitosamente.');
+  await connection.query('CREATE DATABASE IF NOT EXISTS levelup;')
+  console.log('Base de datos creada exitosamente.')
 
-  connection.end();
-};
+  connection.end()
+}
 
 export const addDefaultUser = async () => {
-  await User.sync();
+  await User.sync()
 
   const connection = await createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'levelup',
-  });
+  })
 
   const defaultUser = {
     username: 'default',
@@ -33,27 +34,27 @@ export const addDefaultUser = async () => {
     email: 'default@mail.com',
     img: '',
     isWebMaster: true,
-  };
+  }
 
   const [rows] = await connection.query(
     'SELECT COUNT(*) AS count FROM User WHERE username = ?',
     [defaultUser.username]
-  );
+  )
   if (rows[0].count === 0)
-    await connection.query('INSERT INTO User SET ?', defaultUser);
+    await connection.query('INSERT INTO User SET ?', defaultUser)
 
-  connection.end();
-};
+  connection.end()
+}
 
 export const addDefaultsCharacters = async () => {
-  await Character.sync();
+  await Character.sync()
 
   const connection = await createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'levelup',
-  });
+  })
 
   const characters = [
     [
@@ -88,18 +89,22 @@ export const addDefaultsCharacters = async () => {
       'dwarf_m',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     ],
-  ];
+  ]
 
   const [rows] = await connection.query(
     "SELECT COUNT(*) AS count FROM `Character` WHERE owner = 'default'"
-  );
+  )
   if (rows[0].count != characters.length) {
-    await connection.query('DELETE FROM `Character`');
+    await connection.query('DELETE FROM `Character`')
     await connection.query(
       'INSERT INTO `Character` (fullname, owner, race, class, level, alignment, strength, dexterity, constitution, intelligence, wisdom, charisma, img, biography) VALUES ?',
       [characters]
-    );
+    )
   }
 
-  connection.end();
-};
+  connection.end()
+}
+
+export const addDefaultAdventures = async () => {
+  await Adventure.sync()
+}

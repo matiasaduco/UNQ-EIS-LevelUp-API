@@ -1,4 +1,3 @@
-import { where } from 'sequelize'
 import Character from '../models/character.js'
 
 export const getCharacters = async (req, res) => {

@@ -2,12 +2,14 @@ import {
   createDatabase,
   addDefaultUser,
   addDefaultsCharacters,
-} from './database.js';
+  addDefaultAdventures,
+} from './database.js'
 
 export const init = async () => {
-  await createDatabase();
-  await addDefaultUser();
-  await addDefaultsCharacters();
-};
+  await createDatabase()
+  await addDefaultUser()
+  await addDefaultsCharacters()
+  await addDefaultAdventures()
+}
 
-export default init;
+export default init
