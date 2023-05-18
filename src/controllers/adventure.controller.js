@@ -2,7 +2,15 @@ import Adventure from '../models/adventure.js'
 
 export const getAdventures = async (req, res) => {
   try {
-    const adventures = await Adventure.findAll()
+    const adventures = await Adventure.findAll({ raw: true })
+
+    adventures.map(adventure => {
+      const imgData = Buffer.from(adventure.img).toString('base64')
+      adventure.img = `data:image/jpeg;base64,${imgData}`
+      const pdfData = Buffer.from(adventure.pdf).toString('base64')
+      adventure.pdf = `data:application/pdf;base64,${pdfData}`
+    })
+
     res.status(200).send(adventures)
   } catch (error) {
     res.send({ message: error.message })
@@ -10,8 +18,19 @@ export const getAdventures = async (req, res) => {
 }
 
 export const createAdventure = async (req, res) => {
+  console.log(req.body)
   try {
-    const adventure = await Adventure.create(req.body)
+    const adventure = await Adventure.create({
+      id: req.body.id,
+      owner: req.body.owner,
+      title: req.body.title,
+      level: req.body.level,
+      duration: req.body.duration,
+      language: req.body.language,
+      img: req.files['img'][0].buffer,
+      pdf: req.files['pdf'][0].buffer,
+    })
+    // const adventure = await Adventure.create(req.body)
     res.status(200).send({
       message: 'Aventura creada exitosamente!',
       adventure: adventure,
