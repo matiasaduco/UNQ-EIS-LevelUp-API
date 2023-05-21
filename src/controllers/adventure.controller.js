@@ -1,4 +1,5 @@
 import Adventure from '../models/adventure.js'
+import User from '../models/user.js'
 
 export const getAdventures = async (req, res) => {
   try {
@@ -30,7 +31,6 @@ export const createAdventure = async (req, res) => {
       img: req.files['img'][0].buffer,
       pdf: req.files['pdf'][0].buffer,
     })
-    // const adventure = await Adventure.create(req.body)
     res.status(200).send({
       message: 'Aventura creada exitosamente!',
       adventure: adventure,
@@ -71,26 +71,34 @@ export const deleteAdventure = async (req, res) => {
 
 export const likeAdventure = async (req, res) => {
   try {
-    const adventure = await Adventure.increment(req.body.likes, {
-      where: { id: req.body.id },
+    const user = await User.findOne({
+      where: { username: req.params.user },
+      include: {
+        model: Adventure,
+        where: { id: req.params.id },
+      },
     })
-    res.status(200).send({
-      message: 'Aventura votada exitosamente!',
-      adventure: adventure,
-    })
-  } catch (error) {
-    res.send({ message: error.message })
-  }
-}
+    const adventure = await Adventure.findByPk(req.params.id)
 
-export const unlikeAdventure = async (req, res) => {
-  try {
-    const adventure = await Adventure.decrement(req.body.likes, {
-      where: { id: req.body.id },
-    })
+    if (user) {
+      await user.removeAdventure(adventure)
+      await adventure.removeUser(user)
+
+      await adventure.decrement('likes', {
+        where: { id: req.body.id },
+      })
+    } else {
+      let newUser = await User.findByPk(req.params.user)
+      await newUser.addAdventure(adventure)
+      await adventure.addUser(newUser)
+
+      await adventure.increment('likes', {
+        where: { id: req.body.id },
+      })
+    }
+
     res.status(200).send({
       message: 'Aventura votada exitosamente!',
-      adventure: adventure,
     })
   } catch (error) {
     res.send({ message: error.message })

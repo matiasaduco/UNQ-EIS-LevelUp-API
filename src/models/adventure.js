@@ -12,7 +12,7 @@ const Adventure = sequelize.define(
     language: { type: DataTypes.STRING, defaultValue: false },
     img: {type: DataTypes.BLOB('long')},
     pdf: {type: DataTypes.BLOB('long')},
-    likes: {type: DataTypes.INTEGER, defaultValue: 0, allowNull: false },
+    likes: {type: DataTypes.INTEGER, defaultValue: 0 },
   },
   {
     timestamps: false,
