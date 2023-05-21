@@ -107,4 +107,77 @@ export const addDefaultsCharacters = async () => {
 
 export const addDefaultAdventures = async () => {
   await Adventure.sync()
+
+  const connection = await createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'levelup',
+  })
+
+  const adventures = [
+    {
+      owner: 'default',
+      title: 'Cuentos del Portal Bostezante',
+      level: '',
+      duration: '',
+      language: 'Español',
+      img: './adventures/Cuentos Del Portal Bostezante.jpg',
+      pdf: './adventures/Cuentos Del Portal Bostezante.pdf',
+    },
+    {
+      owner: 'default',
+      title: 'Desde el Abismo',
+      level: '',
+      duration: '',
+      language: 'Español',
+      img: './adventures/Desde El Abismo.jpg',
+      pdf: './adventures/Desde El Abismo.pdf',
+    },
+    {
+      owner: 'default',
+      title: 'La Maldición de Strahd',
+      level: '',
+      duration: '',
+      language: 'Español',
+      img: './adventures/La Maldición De Strahd.jpg',
+      pdf: './adventures/La Maldición De Strahd.pdf',
+    },
+    {
+      owner: 'default',
+      title: 'La Tumba de la Aniquilación',
+      level: '',
+      duration: '',
+      language: 'Español',
+      img: './adventures/La Tumba De La Aniquilación.jpg',
+      pdf: './adventures/La Tumba De La Aniquilación.pdf',
+    },
+    {
+      owner: 'default',
+      title: 'Príncipes del Apocalipsis',
+      level: '',
+      duration: '',
+      language: 'Español',
+      img: './adventures/Príncipes Del Apocalipsis.jpg',
+      pdf: './adventures/Príncipes Del Apocalipsis.pdf',
+    },
+  ]
+
+  const defaultAdventures = adventures.map(adventure => [
+    adventure.owner,
+    adventure.title,
+    adventure.level,
+    adventure.duration,
+    adventure.language,
+    adventure.img,
+    adventure.pdf,
+  ])
+
+  const [rows] = await connection.query(
+    'SELECT COUNT(*) AS count FROM Adventure'
+  )
+  if (rows[0].count === 0)
+    await connection.query('INSERT INTO `Adventure` (owner, title, level, duration, language, img, pdf) VALUES ?', [defaultAdventures])
+
+  connection.end()
 }

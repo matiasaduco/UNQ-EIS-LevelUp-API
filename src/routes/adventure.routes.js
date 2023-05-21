@@ -4,6 +4,7 @@ import {
   createAdventure,
   editAdventure,
   deleteAdventure,
+  likeAdventure,
 } from '../controllers/adventure.controller.js'
 import multer from 'multer'
 
@@ -17,5 +18,6 @@ router.get('/', getAdventures)
 router.post('/create', fileUpload, createAdventure)
 router.put('/edit', editAdventure)
 router.delete('/delete/:id', deleteAdventure)
+router.put('/like/:id/:user', likeAdventure)
 
 export default router
