@@ -68,3 +68,31 @@ export const deleteAdventure = async (req, res) => {
     res.send({ message: error.message })
   }
 }
+
+export const likeAdventure = async (req, res) => {
+  try {
+    const adventure = await Adventure.increment(req.body.likes, {
+      where: { id: req.body.id },
+    })
+    res.status(200).send({
+      message: 'Aventura votada exitosamente!',
+      adventure: adventure,
+    })
+  } catch (error) {
+    res.send({ message: error.message })
+  }
+}
+
+export const unlikeAdventure = async (req, res) => {
+  try {
+    const adventure = await Adventure.decrement(req.body.likes, {
+      where: { id: req.body.id },
+    })
+    res.status(200).send({
+      message: 'Aventura votada exitosamente!',
+      adventure: adventure,
+    })
+  } catch (error) {
+    res.send({ message: error.message })
+  }
+}
