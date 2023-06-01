@@ -122,8 +122,8 @@ export const addDefaultAdventures = async () => {
       level: '',
       duration: '',
       language: 'Español',
-      img: './adventures/Cuentos Del Portal Bostezante.jpg',
-      pdf: './adventures/Cuentos Del Portal Bostezante.pdf',
+      img: 'Cuentos Del Portal Bostezante.jpg',
+      pdf: 'Cuentos Del Portal Bostezante.pdf',
     },
     {
       owner: 'default',
@@ -131,8 +131,8 @@ export const addDefaultAdventures = async () => {
       level: '',
       duration: '',
       language: 'Español',
-      img: './adventures/Desde El Abismo.jpg',
-      pdf: './adventures/Desde El Abismo.pdf',
+      img: 'Desde El Abismo.jpg',
+      pdf: 'Desde El Abismo.pdf',
     },
     {
       owner: 'default',
@@ -140,8 +140,8 @@ export const addDefaultAdventures = async () => {
       level: '',
       duration: '',
       language: 'Español',
-      img: './adventures/La Maldición De Strahd.jpg',
-      pdf: './adventures/La Maldición De Strahd.pdf',
+      img: 'La Maldición De Strahd.jpg',
+      pdf: 'La Maldición De Strahd.pdf',
     },
     {
       owner: 'default',
@@ -149,8 +149,8 @@ export const addDefaultAdventures = async () => {
       level: '',
       duration: '',
       language: 'Español',
-      img: './adventures/La Tumba De La Aniquilación.jpg',
-      pdf: './adventures/La Tumba De La Aniquilación.pdf',
+      img: 'La Tumba De La Aniquilación.jpg',
+      pdf: 'La Tumba De La Aniquilación.pdf',
     },
     {
       owner: 'default',
@@ -158,8 +158,8 @@ export const addDefaultAdventures = async () => {
       level: '',
       duration: '',
       language: 'Español',
-      img: './adventures/Príncipes Del Apocalipsis.jpg',
-      pdf: './adventures/Príncipes Del Apocalipsis.pdf',
+      img: 'Príncipes Del Apocalipsis.jpg',
+      pdf: 'Príncipes Del Apocalipsis.pdf',
     },
   ]
 
