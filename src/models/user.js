@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../database/sequelize.js';
+import { DataTypes } from 'sequelize'
+import sequelize from '../database/sequelize.js'
 
 const User = sequelize.define(
   'User',
@@ -11,8 +11,9 @@ const User = sequelize.define(
     isWebMaster: { type: DataTypes.BOOLEAN, defaultValue: false },
   },
   {
+    timestamps: false,
     freezeTableName: true,
   }
-);
+)
 
-export default User;
+export default User
