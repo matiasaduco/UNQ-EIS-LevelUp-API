@@ -1,3 +1,5 @@
+import { QueryTypes } from 'sequelize'
+import sequelize from '../database/sequelize.js'
 import Adventure from '../models/adventure.js'
 import User from '../models/user.js'
 
@@ -100,6 +102,18 @@ export const likeAdventure = async (req, res) => {
     res.status(200).send({
       message: 'Aventura votada exitosamente!',
     })
+  } catch (error) {
+    res.send({ message: error.message })
+  }
+}
+
+export const getAdventuresLikeds = async (req, res) => {
+  try {
+    const adventures = await sequelize.query(
+      'SELECT AdventureId FROM User_Adventure_Like WHERE UserUsername = ?',
+      { replacements: [req.params.user], type: QueryTypes.SELECT }
+    )
+    res.status(200).send({ adventures })
   } catch (error) {
     res.send({ message: error.message })
   }
