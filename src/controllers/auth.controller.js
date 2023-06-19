@@ -41,13 +41,24 @@ export const login = async (req, res) => {
     const { username, password } = req.body
 
     const user = await User.findOne({ where: { username } })
-    if (!user) return res.status(404).send({message: 'Usuario no encontrado.'})
+    if (!user) return res.status(404).send({ message: 'Usuario no encontrado.' })
 
     const match = await bcrypt.compare(password, user.password)
-    if (!match) return res.status(404).send({message: 'Contraseña incorrecta.'})
+    if (!match) return res.status(404).send({ message: 'Contraseña incorrecta.' })
 
     const token = jwt.sign({ username }, 'root', { expiresIn: '9999999h' })
     res.send({ message: 'Sesión iniciada exitosamente!', token: token })
+  } catch (error) {
+    res.send({ message: error.message })
+  }
+}
+
+export const changePassword = async (req, res) => {
+  try {
+    const { username, password } = req.body
+    const hashedPassword = await hashPassword(password)
+    User.update({ password: hashedPassword }, { where: { username: username } })
+    res.status(200).send({ message: 'Contraseña cambiada exitosamente!' })
   } catch (error) {
     res.send({ message: error.message })
   }
